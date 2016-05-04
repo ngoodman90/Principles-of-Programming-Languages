@@ -132,7 +132,8 @@
 ;; Signature: table-var-table(x)
 ;; Purpose: accessor for type Table-var
 ;; Type: [Table-var -> Symbol]
-(define table-var-table second)
+(define table-var-table
+    (lambda (table-var) (second table-var)))
 
 
 ;; Signature: make-product(relation1 relation2)
@@ -149,11 +150,15 @@
 ;; Signature: product-relation1(x)
 ;; Purpose: accessor for type Product
 ;; Type: [Product -> Relation-exp]
-(define product-relation1 second)
+(define product-relation1
+  (lambda (x)
+     (second x)))
 ;; Signature: product-relation2(x)
 ;; Purpose: accessor for type Product
 ;; Type: [Product -> Relation-exp]
-(define product-relation2 third)
+(define product-relation2
+   (lambda (x)
+     (third x)))
 
 
 ;; Signature: make-join(relation1 relation2 predicate)
@@ -170,7 +175,9 @@
 ;; Signature: join-relation1(x)
 ;; Purpose: accessor for type Join
 ;; Type: [Join -> Relation-exp]
-(define join-relation1 second)
+(define join-relation1
+  (lambda (x)
+     (second x)))
 ;; Signature: join-relation2(x)
 ;; Purpose: accessor for type Join
 ;; Type: [Join -> Relation-exp
@@ -195,7 +202,9 @@
 ;; Signature: union-relation1(x)
 ;; Purpose: accessor for type Union
 ;; Type: [Union -> Relation-exp]
-(define union-relation1 second)
+(define union-relation1
+  (lambda (x)
+     (second x)))
 ;; Signature: union-relation2(x)
 ;; Purpose: accessor for type Union
 ;; Type: [Union -> Relation-exp
@@ -220,11 +229,15 @@
 ;; Signature: predicate-op2(x)
 ;; Purpose: accessor for type Predicate
 ;; Type: [Predicate -> Operand]
-(define predicate-op2 third)
+(define predicate-op2
+  (lambda (x)
+     (third x)))
 ;; Signature: predicate-op(x)
 ;; Purpose: accessor for type Predicate
 ;; Type: [Predicate -> Operator]
-(define predicate-operator fourth)
+(define predicate-operator
+  (lambda (x)
+     (fourth x)))
 
 ;; Signature: quoted-symbol?(x)
 ;; Type: [T -> Boolean]

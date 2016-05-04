@@ -64,14 +64,14 @@
                                                                              on (S_StudentId = G_StudentId)))) =>
                                                                                                                '(query
                                                                                                                  (S_StudentId S_Course G_Grade)
-                                                                                                                 (join (table-ref Students) (join (table-ref Projects) (table-ref Grades) (predicate P_ProjectId G_ProjectId =)) (predicate S_StudentId G_StudentId =))
+                                                                                                                 (join (table-var Students) (join (table-var Projects) (table-var Grades) (predicate P_ProjectId G_ProjectId =)) (predicate S_StudentId G_StudentId =))
                                                                                                                  ()))
    (test (parse-query '(select (S_StudentId G_Grade) from (Students join Grades on (S_StudentId = G_StudentId)) where (G_Grade > 56))) =>
-         '(query (S_StudentId G_Grade) (join (table-ref Students) (table-ref Grades) (predicate S_StudentId G_StudentId =)) (predicate G_Grade 56 >)))
+         '(query (S_StudentId G_Grade) (join (table-var Students) (table-var Grades) (predicate S_StudentId G_StudentId =)) (predicate G_Grade 56 >)))
    (test (parse-query '(select (S_StudentId G_Grade) from (Students product Grades) where (G_Grade < 90))) =>
-         '(query (S_StudentId G_Grade) (product (table-ref Students) (table-ref Grades)) (predicate G_Grade 90 <)))
+         '(query (S_StudentId G_Grade) (product (table-var Students) (table-var Grades)) (predicate G_Grade 90 <)))
    (test (parse-query '(select (S_StudentId S_Name) from Students where (S_StudentId = 0))) =>
-         '(query (S_StudentId S_Name) (table-ref Students) (predicate S_StudentId 0 =)))
+         '(query (S_StudentId S_Name) (table-var Students) (predicate S_StudentId 0 =)))
    (test (query->concrete (parse-query '(select (S_StudentId S_Name) from Students where (S_StudentId = 0)))) =>
          '(select (S_StudentId S_Name) from Students where (S_StudentId = 0)))
    (test (query->concrete (parse-query '(select (S_StudentId G_Grade) from (Students product Grades) where (G_Grade < 90)))) =>
