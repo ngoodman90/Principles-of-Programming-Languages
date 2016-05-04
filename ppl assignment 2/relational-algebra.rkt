@@ -22,8 +22,10 @@
 ;;       ((schema? (make-schema '(Noam Hila))) => #t)
 (define schema?
   (lambda (x)
+    (if (list? x)
     (not (ormap (lambda (e)
-                (member e (cdr (member e x)))) x))))
+                (if (symbol? e) (member e (cdr (member e x))) #t)) x))
+    (symbol? x))))
 
 ;; Signature:relation?(x)
 ;; Purpose:verify that an object is a valid Relation:
@@ -34,7 +36,8 @@
 ;; Tests:((relation? (make-relation (make-schema '(S_StudentId S_Name S_Course) '(0 'Avi 'CS330))) => #t)
 (define relation?
   (lambda (x)
-    (cond [(not (schema? (car x))) #f]
+    (cond [(not (list? x)) #f]
+          [(not (schema? (car x))) #f]
           [(andmap (lambda (row) (= (length (relation-schema x)) (length row))) (relation-rows x)) #t] 
           [else #f]
        )))
@@ -46,7 +49,9 @@
 ;; Tests:()
 (define table? 
   (lambda (x)
+    (if (list? x)
     (and (symbol? (table-name x)) (relation? (table-relation x)))
+    #f)
     ))
   
   
@@ -60,7 +65,8 @@
 ;; Tests:()
 (define database? 
   (lambda (x)
-    (cond [(not (andmap table? x)) #f];checks if all tables are valid
+    (cond [(not (list? x)) #f]
+          [(not (andmap table? x)) #f];checks if all tables are valid
           [(ormap (lambda (e)
                 (member e (cdr (member e (map car x))))) (map car x)) #f]
           [(not (schema? (flatten (foldr cons '() (map table-schema x))))) #f]
@@ -124,8 +130,9 @@
 
 ;; Signature: make-db(tables)
 ;; Type: [List(Table) -> Database]
+;; Purpose:a
 ;; Precondition: The schemas of all tables are disjoint.
-;; Test: (make-db (list (make-table 'Students 
+;; Tests: (make-db (list (make-table 'Students 
 ;;                            (make-schema '(StudentId Name Course))
 ;;                            (list '(0 'Avi 'CS330)
 ;;                                  '(1 'Sarah 'CS330)))))
@@ -136,14 +143,17 @@
 ;; Signature: db-table(db table)
 ;; Type: [Db * Symbol -> Table]
 ;; Purpose: accessor for the Db type.
+;; Precondition: a
+;; Tests:()
 (define db-table
   (lambda (db table)
     (assoc table db)))
 
 ;; Signature: make-table(table-name, schema, rows)
 ;; Type: [Symbol * Schema * List(Row) -> Table]
+;; Purpose:a
 ;; Precondition: all rows are compatible with the schema (same length).
-;; Test: (make-table 'Students 
+;; Tests: (make-table 'Students 
 ;;                   (make-schema '(StudentId Name Course))
 ;;                   (list '(0 'Avi 'CS330)
 ;;                         '(1 'Yosi 'CS330)))
@@ -155,40 +165,67 @@
 
 ;; Signature: table-name(table)
 ;; Type: [Table -> Symbol]
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
 (define table-name
   (lambda (table)
     (car table)))
 ;; Signature: table-schema(table)
 ;; Type: [Table -> Schema]
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
 (define table-schema
   (lambda (table)
     (cadr table)))
 ;; Signature: table-rows(table)
 ;; Type: [Table -> List(Row)]
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
 (define table-rows
   (lambda (table)
     (cddr table)))
 ;; Signature: table-relation(table)
 ;; Type: [Table -> Relation]
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
 (define table-relation
   (lambda (table)
     (cdr table)))
 
 ;; Signature: make-relation(schema, rows)
 ;; Type: [Schema * List(Row) -> Relation]
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
 (define make-relation
   (lambda (schema rows)
     (cons schema rows)))
 ;; Signature: relation-schema(relation)
 ;; Type: [Relation -> Schema]
-(define relation-schema car)
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
+(define relation-schema
+  (lambda (relation)
+    (car relation)))
 ;; Signature: relation-rows(relation)
 ;; Type: [Relation -> List(Row)]
-(define relation-rows cdr)
+;; Purpose:a
+;; Precondition: a
+;; Tests:()
+(define relation-rows
+  (lambda (relation)
+    (cdr relation)))
 
 ;; Signature: make-schema(names)
 ;; Type: [List(Symbol) -> Schema]
 ;; Preconditions: all symbols in the schema are distinct
+;; Purpose:a
+;; Tests:()
 (define make-schema
   (lambda (names) names))
 
@@ -199,7 +236,7 @@
 ;; Signature: enumerate(list)
 ;; Purpose: return a list of the form ((0 . x0) (1 . x1) ...) from a list (x0 x1 ...)
 ;; Type: [List(T) -> List(Pair(Number,T))
-;; Test: (enumerate '(a b c)) ==> '((0 . a) (1 . b) (2 . c))
+;; Tests: (enumerate '(a b c)) ==> '((0 . a) (1 . b) (2 . c))
 (define enumerate
   (lambda (list)
     (letrec ((iter (lambda (i l)
@@ -266,6 +303,7 @@
 ;; Signature: select(predicate, relation)
 ;; Purpose: compute the selection of a relation according to the relational algebra definition
 ;; Type: [[Row -> Boolean] * Relation -> Relation]
+;; Precondition:a
 ;; Tests:
 ;; (let ((relation (make-relation (make-schema '(a b c)) 
 ;;                                (list '(10 20 30)
