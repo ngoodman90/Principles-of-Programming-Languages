@@ -43,5 +43,8 @@
        (let  ((x1 (- x0 (/ (f x0) ((derive f 0.001) x0)))))
             (cons-lzl x0
                  (lambda ()
-                   (lazy-function-root f x1 eps))))))) 
+                   (lazy-function-root f x1 eps)))))))
+
+
+
 

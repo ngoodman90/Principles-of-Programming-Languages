@@ -13,7 +13,8 @@
 ; Tests:
 (define filter1$
   (lambda (pred$ seq cont)
-    ...))
+    (cond ((empty? seq) (cont c))
+          ((pred
 
 ; +----------------------+
 ; | Answer Q4-a.3 below  |
