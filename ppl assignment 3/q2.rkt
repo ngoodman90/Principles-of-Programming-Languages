@@ -15,10 +15,11 @@
 ;Pre-conditions: 0 < dx < 1
 ;Tests: ((derive cube 0.001) 5) ==> ~75
 (define derive
-   (lambda (f dx)
+   (lambda (f)
       (lambda (x)
+        (let ((dx 0.001))
           (/ (- (f (+ x dx)) (f x))
-              dx))))
+              dx)))))
 
 ; Signature: c-nth-deriv-f(f)
 ; Type: [[Number -> Number] -> _____________]
@@ -27,7 +28,7 @@
 ; Tests:
 (define c-nth-deriv-f
   (lambda (f) 
-    (let ([f1 (derive f 0.001)])
+    (let ([f1 (derive f)])
           (lambda (n)
             (if (= n 0)
                 f
@@ -48,4 +49,4 @@
         (lambda (f)
           f)
         (lambda (f)
-          ((c-nth-deriv-n (- n 1)) (derive f 0.001))))))
+          ((c-nth-deriv-n (- n 1)) (derive f))))))
