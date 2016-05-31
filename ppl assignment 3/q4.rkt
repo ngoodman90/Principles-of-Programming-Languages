@@ -6,11 +6,11 @@
 ; | Answer Q4-a.1 below  |
 ; +----------------------+
 
-; Signature: filter1$(pred$,seq,cont)
-; Type: 
-; Purpose: 
-; Pre-conditions:
-; Tests:
+;Signature: filter1$(pred$,seq,cont)
+;Type: 
+;Purpose: 
+;Pre-conditions:
+;Tests:
 (define filter1$
   (lambda (pred$ seq cont)
     (cond [(empty? seq) (cont empty)]
@@ -32,11 +32,11 @@
 ; | Answer Q4-a.3 below  |
 ; +----------------------+
 
-; Signature: filter2$(pred,seq,cont)
-; Type: 
-; Purpose: 
-; Pre-conditions:
-; Tests:
+;Signature: filter2$(pred,seq,cont)
+;Type: 
+;Purpose: 
+;Pre-conditions:
+;Tests:
 (define filter2$
   (lambda (pred seq cont)
     (cond ((empty? seq) (cont empty))
@@ -56,8 +56,7 @@
 ;         continuation 'success' to the pair (key . val). Otherwise, 
 ;         apply the continuation 'fail'.
 ;Pre-conditions: assoc-list is a list of pairs
-;Tests:
-;Examples:(get-value$ '((a . 3) (b . 4)) 'b (lambda(x)x) (lambda()#f)) 
+;Tests: (get-value$ '((a . 3) (b . 4)) 'b (lambda(x)x) (lambda()#f)) 
 ;          --> (b . 4) 
 (define get-value$
   (lambda (assoc-list key success fail)
@@ -77,12 +76,11 @@
 ;Type: [List(Association-list)*Symbol -> T]
 ;Purpose: Retrieves the value of 'key' in the first association-list that includes 'key'. If no such value, the Scheme error function is applied.
 ;Pre-conditions:
-;Tests:
-;Examples: 	> (define l1 '((a . 1) (b . 2) (e . 3)))
-;		> (define l2 '((e . 5) (f . 6)))
-;		> (get-first-value (list l1 l2), 'e)
+;Tests:(define l1 '((a . 1) (b . 2) (e . 3)))
+;		(define l2 '((e . 5) (f . 6)))
+;		(get-first-value (list l1 l2), 'e)
 ;               3
-;		> (get-first-value (list l1 l2), 'g)
+;		(get-first-value (list l1 l2), 'g)
 ;               ‘()
 (define get-first-value
   (lambda (assoc-list key)
@@ -99,12 +97,11 @@
 ;Type: [List(Assoc-list)*Symbol -> T]
 ;Purpose: Returns a list of all values of 'key' in the given association lists. If no such value, returns the empty list.  
 ;Pre-conditions:
-;Tests:
-;Examples: 	> (define l1 '((a . 1) (b . 2) (e . 3)))
-;		> (define l2 '((e . 5) (f . 6))) 
-;		> (get-first-value (list l1 l2), 'e)
+;Tests:	(define l1 '((a . 1) (b . 2) (e . 3)))
+;		(define l2 '((e . 5) (f . 6))) 
+;		(get-first-value (list l1 l2), 'e)
 ;               ‘(3 5)
-;		> (get-first-value (list l1 l2), 'k)
+;	        (get-first-value (list l1 l2), 'k)
 ;		‘()
 (define collect-all-values
   (lambda (assoc-list key)
