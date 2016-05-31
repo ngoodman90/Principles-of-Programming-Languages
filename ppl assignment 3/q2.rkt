@@ -20,17 +20,10 @@
               dx)))))
 
 ; Signature: c-nth-deriv-f(f)
-<<<<<<< HEAD
-; Type: [[Number -> Number] -> [Number -> Number]]
-; Purpose: derive a function n times
-; Pre-conditions: n >= 0
-; Tests: (((c-nth-deriv-f (lambda (x) x)) 1) 10) ==> ~0.9999999999994458
-=======
 ; Type: [[Number -> Number] -> [Number -> Number]
 ; Purpose: a curried version of derive, function first
 ; Pre-conditions: none
 ; Tests: (((c-nth-deriv-f (lambda (x) x)) 1) 110) ==> 1.0000000000047748
->>>>>>> d0e0cc1bbcecaf90c21e7e0ce7e4a732fae4ac54
 (define c-nth-deriv-f
   (lambda (f) 
     (let ([f1 (derive f)])
@@ -44,13 +37,7 @@
 ; +-----------------------+
 
 ; Signature: c-nth-deriv-n(n)
-<<<<<<< HEAD
 ; Type: [Number -> [[Number -> Number] -> Number]]
-; Purpose: derive a function n times
-; Pre-conditions: n >= 0
-; Tests: (((c-nth-deriv-n 1) (lambda (x) x)) 10) ==> ~0.9999999999994458
-=======
-; Type: [Number -> _____________]
 ; Purpose: a curried version of derive, n first
 ; Pre-conditions: n >= 0
 ; Tests:(((c-nth-deriv-n 1) (lambda (x) x))) 110) ==> 1.0000000000047748
