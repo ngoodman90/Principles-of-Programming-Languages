@@ -7,7 +7,7 @@
 ; +-----------------------+
 
 
-;Signature: derive(f dx)
+;Signature: derive(f)
 ;Type: [[Number -> Number]*Number -> [Number -> Number]]
 ;Purpose: to construct a procedure that computes the derivativedx approximation of a function:derive(f dx)(x) = (f(x+dx) - f(x) )/ dx
 ;Pre-conditions: 0 < dx < 1

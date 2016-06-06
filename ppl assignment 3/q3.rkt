@@ -7,7 +7,7 @@
 ; +-----------------------+
 
 ;Signature: empty-lzl()
-;Type: 
+;Type: [ -> ]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:
@@ -16,7 +16,7 @@
 
 
 ;Signature: empty-lzl?()
-;Type: 
+;Type: [T -> Boolean]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:
@@ -25,26 +25,26 @@
 
 
 ;Signature: cons-lzl(x,lzl)
-;Type: 
+;Type: [T*LzL -> LzL]
 ;Purpose: 
-;Pre-conditions:
+;Pre-conditions: lzl=empty-lzl or <closure () Lazy-list>
 ;Tests:
 (define cons-lzl cons)
 
 
 ;Signature: head()
-;Type: 
+;Type: [LzL -> T] ;that is, the type is [T*[Empty -> LzL] -> T]
 ;Purpose: 
-;Pre-conditions:
+;Pre-conditions: [LzL -> T] ;that is, the type is [T*[Empty -> LzL] -> T]
 ;Tests:
 (define head car)
 
 
 
 ;Signature: tail(lz-lst)
-;Type: 
+;Type: [LzL -> T] ;that is, the type is [T*[Empty -> LzL] -> T]
 ;Purpose: 
-;Pre-conditions:
+;Pre-conditions:  lzl-lst is not empty: (not (empty-lzl? lzl-lst)))
 ;Tests:
 (define tail
   (lambda (lz-lst)
@@ -55,7 +55,7 @@
 
 
 ;Signature: take(lz-lst, n)
-;Type: 
+;Type: [LzL*Number -> List]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:
@@ -69,9 +69,9 @@
 
 
 ;Signature: nth(lz-lst, n)
-;Type: 
+;Type: [LzL*Number -> T]
 ;Purpose: 
-;Pre-conditions:
+;Pre-conditions: [LzL*Number -> T]
 ;Tests:
 (define nth
   (lambda (lz-lst n)
@@ -81,10 +81,10 @@
     ))
 
 ;Signature: derive(f)
-;Type: 
-;Purpose: 
-;Pre-conditions:
-;Tests:
+;Type: [[Number -> Number]*Number -> [Number -> Number]]
+;Purpose: to construct a procedure that computes the derivativedx approximation of a function:derive(f dx)(x) = (f(x+dx) - f(x) )/ dx
+;Pre-conditions: 0 < dx < 1
+;Tests: ((derive cube 0.001) 5) ==> ~75
 (define derive
    (lambda (f)
       (lambda (x)
@@ -94,7 +94,7 @@
 
 
 ;Signature: lazy-function-root(f,x0)
-;Type: 
+;Type: [[Number -> Number]*Number -> [Number -> Number]]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:

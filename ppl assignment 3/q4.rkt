@@ -7,7 +7,7 @@
 ; +----------------------+
 
 ;Signature: filter1$(pred$,seq,cont)
-;Type: 
+;Type: [[T1*[T2->T2]->T2]*List(T1)*[List(T1)-> T2] -> T2]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:
@@ -33,7 +33,7 @@
 ; +----------------------+
 
 ;Signature: filter2$(pred,seq,cont)
-;Type: 
+;Type: [[T1*[T2->T2]->T2]*List(T1)*[List(T1)-> T2] -> T2]
 ;Purpose: 
 ;Pre-conditions:
 ;Tests:
