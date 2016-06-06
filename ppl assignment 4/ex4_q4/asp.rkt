@@ -75,7 +75,23 @@
 (define special-form?
   (lambda (exp)
     (or (quoted? exp) (lambda? exp) (definition? exp)
-        (if? exp) (begin? exp) (assignment? exp))))
+        (if? exp) (begin? exp) (assignment? exp) (defined?? exp))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defined?
+(define defined??
+  (lambda (exp)
+    (tagged-by? exp 'defined?)))
+
+(define var-of-defined?
+  (lambda (exp) (get-content exp)))
+
+(define make-defined?
+  (lambda (var)
+    (attach-tag (list var) 'defined?)))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

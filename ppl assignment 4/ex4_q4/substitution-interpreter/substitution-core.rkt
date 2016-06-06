@@ -74,8 +74,21 @@
           ((lambda? exp) (eval-lambda exp))
           ((definition? exp) (eval-definition exp))
           ((if? exp) (eval-if exp))
+          ((defined?? exp) (eval-defined? exp))
           ((begin? exp) (eval-begin exp))
           )))
+
+(define eval-defined?
+  (lambda (exp)
+    (let ((var (var-of-defined? exp))
+          (sub the-global-environment))
+    (letrec ((lookup
+              (lambda (vars vals)
+                (cond [(empty? vars) #f]
+                      [(eq? var (car vars)) #t]
+                      [else (lookup (cdr vars) (cdr vals))]))))
+      (lookup (get-variables sub) (get-values sub))))
+  ))
 
 (define eval-lambda
   (lambda (exp)
