@@ -1,0 +1,1 @@
+("6.1.1" ("683593d51df5a0f70137468d3ab3c3e01715ab0d" . "ac401bfabd2737562cbea9704b97f23d4752af49") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") #"/users/studs/bsc/2015/noamgood/Principles-of-Programming-Languages/ppl assignment 4/ex4_q6/env-interpreter-compiler/../asp.rkt")
