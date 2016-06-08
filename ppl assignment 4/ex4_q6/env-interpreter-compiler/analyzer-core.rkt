@@ -48,6 +48,7 @@
           ((lambda? exp) (analyze-lambda exp))
           ((definition? exp) (analyze-definition exp))
           ((if? exp) (analyze-if exp))
+          ((and? exp) (analyze-and exp))
           ((begin? exp) (analyze-begin exp)))
         ))
 
@@ -83,6 +84,20 @@
         (if (true? (pred env))
             (consequent env)
             (alternative env))))))
+
+(define analyze-and
+  (lambda (exp)
+    (cond [(empty? (get-content exp)) #t]
+          [(empty? (cdr (get-content exp))) (analyze (get-content exp))]
+          [else (letrec ((preds (and-predicates exp))
+                         (res (analyze (and-res exp)))
+                         (helper (lambda (preds)
+                              (cond [(empty? preds) res]
+                                    [(not (true? (analyze (car preds)))) #f]
+                                    [else (helper (cdr preds))]))))
+                      (helper preds))]
+          )))
+         
 
 (define analyze-begin 
   (lambda (exp)

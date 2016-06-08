@@ -75,7 +75,7 @@
 (define special-form?
   (lambda (exp)
     (or (quoted? exp) (lambda? exp) (definition? exp)
-        (if? exp) (begin? exp) (assignment? exp))))
+        (if? exp) (and? exp) (begin? exp) (assignment? exp))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -236,6 +236,24 @@
   (lambda (predicate consequent alternative)
     (attach-tag (list predicate consequent alternative) 'if)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; and
+
+(define and?
+  (lambda (exp)
+    (tagged-by? exp 'and)))
+
+(define and-predicates
+  (lambda (exp)
+    (reverse (cdr (reverse (get-content exp))))))
+
+(define and-res
+  (lambda (exp)
+    (car (reverse (get-content exp)))))
+
+(define make-and
+  (lambda (predicates res)
+    (attach-tag (list predicates res) 'and)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Assignment

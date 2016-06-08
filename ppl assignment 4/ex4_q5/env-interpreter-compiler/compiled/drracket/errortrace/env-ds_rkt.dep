@@ -1,1 +1,0 @@
-("6.0" ("683593d51df5a0f70137468d3ab3c3e01715ab0d" . "0caf82ce7567e85d15c99bf76c305d842ea844d8") #"C:\\Users\\user\\Dropbox\\courses\\ppl\\ppl162\\ex_4\\template\\ex4_q5\\env-interpreter-compiler\\..\\asp.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
