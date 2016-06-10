@@ -243,21 +243,11 @@
   (lambda (exp)
     (tagged-by? exp 'and)))
 
-(define and-empty?
-  (lambda (exp)
-    (empty? (get-content exp))))
 
-(define and-only-res?
+(define and-preds
   (lambda (exp)
-    (empty? (cdr (get-content exp)))))
+    (get-content exp)))
 
-(define and-predicates
-  (lambda (exp)
-    (reverse (cdr (reverse (get-content exp))))))
-
-(define and-res
-  (lambda (exp)
-    (car (reverse (get-content exp)))))
 
 (define make-and
   (lambda (predicates res)

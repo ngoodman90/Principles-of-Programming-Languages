@@ -87,17 +87,17 @@
 
 (define analyze-and
   (lambda (exp)
-    (begin (display "starting\n")
-           (cond [(and-empty? exp) (analyze #t)]
-                 [(and-only-res? exp) (analyze (get-content exp))]
-                 [else (letrec ((preds (and-predicates exp))
-                         (helper (lambda (preds)
-                              (cond [(empty? preds) (analyze (and-res exp))]
-                                    [(false? (analyze (car preds))) (analyze #f)]
-                                    [else (helper (cdr preds))]))))
-                      (helper preds))]
-          ))))
-         
+    (let ((preds (and-preds exp))
+           (ret-true (analyze #t)))
+      (lambda (env)
+        (letrec ((helper (lambda (preds env)
+                           (if (or (null? (cdr preds)) (false? ((analyze (car preds)) env)))
+                               ((analyze (car preds)) env)
+                               (helper (cdr preds) env)))))
+          (cond [(null? preds) (ret-true env)]
+                [(null? (cdr preds)) ((analyze preds) env)]
+                [else (helper preds env)]))))))
+              
 
 (define analyze-begin 
   (lambda (exp)

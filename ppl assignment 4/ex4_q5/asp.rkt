@@ -75,7 +75,39 @@
 (define special-form?
   (lambda (exp)
     (or (quoted? exp) (lambda? exp) (definition? exp)
-        (if? exp) (begin? exp) (assignment? exp))))
+        (if? exp) (begin? exp) (assignment? exp) (defined?? exp))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defined?
+(define defined??
+  (lambda (exp)
+    (tagged-by? exp 'defined?)))
+
+(define var-of-defined?
+  (lambda (exp) (get-content exp)))
+
+(define make-defined?
+  (lambda (var)
+    (attach-tag (list var) 'defined?)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defined-in-closure?
+(define defined-in-closure??
+  (lambda (exp)
+    (tagged-by? exp 'defined-in-closure?)))
+
+(define var-of-defined-in-closure?
+  (lambda (exp) (car (get-content exp))))
+
+  (define closure-of-defined-in-closure?
+    (lambda (exp) (cdr (get-content exp))))
+
+(define make-defined-in-closure?
+  (lambda (var closure)
+    (attach-tag (list var closure) 'defined-in-closure?)))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

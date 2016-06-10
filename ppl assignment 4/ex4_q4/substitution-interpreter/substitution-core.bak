@@ -84,8 +84,8 @@
           (sub the-global-environment))
     (letrec ((lookup
               (lambda (vars)
-                (cond [(empty? vars) (begin (display "hello1\n") (make-value #f))]
-                      [(eq? var (car vars)) (begin (display "hello2\n") (applicative-eval #t))]
+                (cond [(empty? vars) #f]
+                      [(eq? var (car vars)) (applicative-eval #t)]
                       [else (lookup (cdr vars))]))))
       (lookup (get-variables sub))))
   ))
