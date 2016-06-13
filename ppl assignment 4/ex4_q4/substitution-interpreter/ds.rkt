@@ -378,15 +378,6 @@
   ))
 
 
-(define search-global
-  (lambda (var)
-    (let ((vars (get-variables the-global-environment)))
-      (if (member var vars)
-          (lambda () '(value #t))
-          (lambda () '(value #f))
-          )
-      )
-    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bindings

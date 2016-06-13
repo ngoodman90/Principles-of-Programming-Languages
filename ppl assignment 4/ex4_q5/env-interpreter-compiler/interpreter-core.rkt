@@ -74,9 +74,12 @@
 
 (define eval-defined-in-closure?
   (lambda (exp)
-    (defined-in-closure 
-      (derive-eval (car (closure-of-defined-in-closure? exp)))                 
-      (var-of-defined-in-closure? exp))))
+    (let ((var (var-of-defined-in-closure? exp))
+          (closure (derive-eval (car (closure-of-defined-in-closure? exp)))))
+      (with-handlers ((exn:fail? (lambda (exn) #f)))
+        (if (lookup-variable-value 
+             (procedure-environment closure) var) #t #f)))
+    ))
 
 (define eval-definition
   (lambda (exp)

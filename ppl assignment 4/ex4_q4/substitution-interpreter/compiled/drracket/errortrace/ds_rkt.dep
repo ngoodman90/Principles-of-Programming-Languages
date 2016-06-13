@@ -1,1 +1,0 @@
-("6.5" ("84773962888ae4733541f0ef4edaf3142231aca3" . "92dfd789f006e01d9c1d5ed40f1b6bbde33a9d9a") #"C:\\Users\\Noam\\Documents\\Principles-of-Programming-Languages\\ppl assignment 4\\ex4_q4\\substitution-interpreter\\..\\asp.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

@@ -58,11 +58,7 @@
   (lambda (p)
     (caddr (get-content p))))
 
-(define defined-in-closure
-  (lambda (closure var)
-    (with-handlers ((exn:fail? (lambda (exn) #f)))
-      (if (lookup-variable-value 
-        (procedure-environment closure) var) #t #f) )))
+
   
 
 

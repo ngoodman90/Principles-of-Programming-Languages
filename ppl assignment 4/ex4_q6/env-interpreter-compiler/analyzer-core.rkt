@@ -28,6 +28,7 @@
           (else (error 'eval "unknown expression type: ~s" exp)))))
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Atomic
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -95,7 +96,6 @@
                                ((analyze (car preds)) env)
                                (helper (cdr preds) env)))))
           (cond [(null? preds) (ret-true env)]
-                [(null? (cdr preds)) ((analyze preds) env)]
                 [else (helper preds env)]))))))
               
 

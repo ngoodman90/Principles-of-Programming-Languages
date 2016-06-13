@@ -80,9 +80,13 @@
 
 (define eval-defined?
   (lambda (exp)
-    (let ((var (var-of-defined? exp)))
-      ((search-global var)))
-))
+    (let ((var (var-of-defined? exp))
+          (vars (get-variables the-global-environment)))
+      (if (member var vars)
+          '(value #t)
+          '(value #f)
+          ))
+    ))
 
 (define eval-lambda
   (lambda (exp)
