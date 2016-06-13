@@ -85,7 +85,7 @@
     (tagged-by? exp 'defined?)))
 
 (define var-of-defined?
-  (lambda (exp) (get-content exp)))
+  (lambda (exp) (car (get-content exp))))
 
 (define make-defined?
   (lambda (var)

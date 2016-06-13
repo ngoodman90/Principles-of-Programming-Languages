@@ -62,6 +62,7 @@
                (error 'eval "non global definition: ~s" exp)
                (eval-definition exp)))
           ((if? exp) (eval-if exp env))
+          ((defined-in-closure?? exp) (eval-defined-in-closure? exp))
           ((begin? exp) (eval-begin exp env))
           )))
 
@@ -70,6 +71,12 @@
     (make-procedure (lambda-parameters exp)
                     (lambda-body exp)
                     env)))
+
+(define eval-defined-in-closure?
+  (lambda (exp)
+    (defined-in-closure 
+      (derive-eval (car (closure-of-defined-in-closure? exp)))                 
+      (var-of-defined-in-closure? exp))))
 
 (define eval-definition
   (lambda (exp)

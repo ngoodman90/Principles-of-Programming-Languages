@@ -80,15 +80,9 @@
 
 (define eval-defined?
   (lambda (exp)
-    (let ((var (var-of-defined? exp))
-          (sub the-global-environment))
-    (letrec ((lookup
-              (lambda (vars)
-                (cond [(empty? vars) (begin (display "hello1\n") (make-value #f))]
-                      [(eq? var (car vars)) (begin (display "hello2\n") (applicative-eval #t))]
-                      [else (lookup (cdr vars))]))))
-      (lookup (get-variables sub))))
-  ))
+    (let ((var (var-of-defined? exp)))
+      ((search-global var)))
+))
 
 (define eval-lambda
   (lambda (exp)

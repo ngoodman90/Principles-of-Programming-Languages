@@ -1,6 +1,6 @@
 #lang racket
 
-(require "./env-interpreter-compiler/interpreter-core.rkt" "asp.rkt")
+(require "./env-interpreter-compiler/interpreter-core.rkt" "asp.rkt" "./env-interpreter-compiler/env-ds.rkt")
 
 (run-tests
  (test

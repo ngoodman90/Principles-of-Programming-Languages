@@ -75,7 +75,23 @@
 (define special-form?
   (lambda (exp)
     (or (quoted? exp) (lambda? exp) (definition? exp)
-        (if? exp) (begin? exp) (assignment? exp) (defined-in-closure?? exp))))
+        (if? exp) (begin? exp) (assignment? exp) (defined?? exp))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defined?
+(define defined??
+  (lambda (exp)
+    (tagged-by? exp 'defined?)))
+
+(define var-of-defined?
+  (lambda (exp) (get-content exp)))
+
+(define make-defined?
+  (lambda (var)
+    (attach-tag (list var) 'defined?)))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -110,26 +126,6 @@
 (define make-lambda
   (lambda (parameters body)
     (attach-tag (cons parameters body) 'lambda)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; defined-in-closure??
-(define defined-in-closure??
-  (lambda (exp)
-    (tagged-by? exp 'defined-in-closure?)))
-
-(define var-of-defined-in-closure?
-  (lambda (exp)
-     (car (get-content exp))))
-
-(define closure-of-defined-in-closure?
-  (lambda (exp)
-     (cdr (get-content exp))))
-
-(define make-defined-in-closure?
-  (lambda (var)
-    (attach-tag (list var) 'defined-in-closure?)))
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Case
@@ -186,7 +182,6 @@
 (define make-definition
   (lambda (var value)
     (attach-tag (list var value) 'define)))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
